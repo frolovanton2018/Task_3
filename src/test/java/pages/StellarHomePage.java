@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -38,7 +39,7 @@ public class StellarHomePage {
     public static final By bunsButton = By.xpath("(//*[contains(@class, 'tab_tab')])[1]");
 
     // Кнопка "Соусы"
-    public static final By sauceButton = By.xpath("(//*[contains(@class, 'tab_tab')])[2]");
+    public static final By sauceButton = By.xpath("//span[text()='Соусы']");
 
     // Кнопка "начинки"
     public static final By fillingsButton = By.xpath("(//*[contains(@class, 'tab_tab')])[3]");
@@ -88,5 +89,17 @@ public class StellarHomePage {
     // Найти элемент по тексту и вернуть WebElement
     public WebElement findElementWithText(String text) {
         return driver.findElement(By.xpath(String.format("//*[text()='%s']", text)));
+    }
+
+    // Проверка, что элемент находится в viewport
+    public boolean isElementInViewport(WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        return (boolean) js.executeScript(
+                "var rect = arguments[0].getBoundingClientRect(); " +
+                "return rect.top >= 0 && rect.left >= 0 && " +
+                "rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && " +
+                "rect.right <= (window.innerWidth || document.documentElement.clientWidth);",
+                element
+        );
     }
 }

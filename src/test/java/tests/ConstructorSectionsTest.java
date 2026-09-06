@@ -3,7 +3,14 @@ package tests;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.StellarHomePage;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -20,10 +27,14 @@ public class ConstructorSectionsTest extends BaseTest {
     @Test
     @DisplayName("Переход к разделу «Соусы» и проверка видимости элементов Соусы")
     @Step("Переход к разделу «Соусы» и проверка видимости элементов")
-    void testSaucesSection() {
+    void testSaucesSection() throws InterruptedException {
         driver.findElement(StellarHomePage.sauceButton).click();
-        stellarHomePage.waitForSausesVisibility(SHIP_SAUSE);
-        stellarHomePage.waitForSausesVisibility(SPICY_SAUSE);
+        Thread.sleep(1000);
+        WebElement shipSause = driver.findElement(By.xpath("//*[text()='" + SHIP_SAUSE + "']"));
+        WebElement spicySause = driver.findElement(By.xpath("//*[text()='" + SPICY_SAUSE + "']"));
+
+        assertTrue(stellarHomePage.isElementInViewport(shipSause), "Элемент '" + SHIP_SAUSE + "' должен быть в видимой области");
+        assertTrue(stellarHomePage.isElementInViewport(spicySause), "Элемент '" + SPICY_SAUSE + "' должен быть в видимой области");
     }
 
     @Test
@@ -31,16 +42,25 @@ public class ConstructorSectionsTest extends BaseTest {
     @Step("Переход к разделу «Булки» и проверка видимости элементов")
     void testBunsSection() {
         // Булки выбраны по умолчанию, клик не нужен
-        stellarHomePage.waitForBunsVisibility(KRAT_BULKA);
-        stellarHomePage.waitForBunsVisibility(FLUR_BULKA);
+
+        WebElement shipSause = driver.findElement(By.xpath("//*[text()='" + KRAT_BULKA + "']"));
+        WebElement spicySause = driver.findElement(By.xpath("//*[text()='" + FLUR_BULKA + "']"));
+
+        assertTrue(stellarHomePage.isElementInViewport(shipSause), "Элемент '" + SHIP_SAUSE + "' должен быть в видимой области");
+        assertTrue(stellarHomePage.isElementInViewport(spicySause), "Элемент '" + KRAT_BULKA + "' должен быть в видимой области");
     }
 
     @Test
     @DisplayName("Переход к разделу «Начинки» и проверка видимости элементов Начинки")
     @Step("Переход к разделу «Начинки» и проверка видимости элементов")
-    void testFillingsSection() {
+    void testFillingsSection() throws InterruptedException {
         driver.findElement(StellarHomePage.fillingsButton).click();
-        stellarHomePage.waitForFillingsVisibility(MINERAL_FILLING);
-        stellarHomePage.waitForFillingsVisibility(TREE_FILLING);
+        Thread.sleep(1000);
+
+        WebElement shipSause = driver.findElement(By.xpath("//*[text()='" + MINERAL_FILLING + "']"));
+        WebElement spicySause = driver.findElement(By.xpath("//*[text()='" + TREE_FILLING + "']"));
+
+        assertTrue(stellarHomePage.isElementInViewport(shipSause), "Элемент '" + MINERAL_FILLING + "' должен быть в видимой области");
+        assertTrue(stellarHomePage.isElementInViewport(spicySause), "Элемент '" + TREE_FILLING + "' должен быть в видимой области");
     }
 }

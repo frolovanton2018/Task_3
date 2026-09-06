@@ -2,22 +2,16 @@ package tests;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.PageFactory;
-import pages.LoginPage;
+
 import pages.StellarHomePage;
 
 public class BaseTest {
 
     protected WebDriver driver;
     protected StellarHomePage stellarHomePage;
-    protected LoginPage loginPage;
 
     private static final String BASE_URL = "https://qa-stellarburgers.education-services.ru/";
     
