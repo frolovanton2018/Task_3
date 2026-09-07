@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -68,38 +67,32 @@ public class StellarHomePage {
         driver.findElement(lkButton).click();
     }
 
-    // метод проверки с ожиданием видимости соусов
-    public void waitForSausesVisibility(String sauseName) {
-        new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format("//*[text()='%s']", sauseName))));
+    // метод выбора вкладки Соусы с ожиданием
+    public void waitForScrollToSausesTab() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//div[contains(@class, 'current') and .//span[text()='Соусы']]")
+        ));
     }
 
-    // метод проверки с ожиданием видимости соусов
-    public void waitForBunsVisibility(String bunName) {
-        new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format("//*[text()='%s']", bunName))));
-    }
+    // метод выбора вкладки Начинки с ожиданием
+     public void waitForScrollToFillingsTab() {
+         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+         wait.until(ExpectedConditions.presenceOfElementLocated(
+                 By.xpath("//div[contains(@class, 'current') and .//span[text()='Начинки']]")
+         ));
+     }
 
-    // метод проверки с ожиданием видимости начинок
-    public void waitForFillingsVisibility(String fillingName) {
-        new WebDriverWait(driver, Duration.ofSeconds(8))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format("//*[text()='%s']", fillingName))));
+    // метод выбора вкладки Булки с ожиданием
+    public void waitForBunsVisibilityTab() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//div[contains(@class, 'current') and .//span[text()='Булки']]")
+        ));
     }
 
     // Найти элемент по тексту и вернуть WebElement
     public WebElement findElementWithText(String text) {
         return driver.findElement(By.xpath(String.format("//*[text()='%s']", text)));
-    }
-
-    // Проверка, что элемент находится в viewport
-    public boolean isElementInViewport(WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        return (boolean) js.executeScript(
-                "var rect = arguments[0].getBoundingClientRect(); " +
-                "return rect.top >= 0 && rect.left >= 0 && " +
-                "rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && " +
-                "rect.right <= (window.innerWidth || document.documentElement.clientWidth);",
-                element
-        );
     }
 }
