@@ -5,7 +5,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.StellarHomePage;
+
+import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -24,17 +28,24 @@ public class ConstructorSectionsTest extends BaseTest {
     @Step("Переход к разделу «Соусы» и проверка видимости элементов")
     void testSaucesSection() {
         driver.findElement(StellarHomePage.sauceButton).click();
-        stellarHomePage.waitForScrollToSausesTab();
 
-        assertTrue(driver.findElement(By.xpath("//*[contains(text(), '" + SHIP_SAUSE + "')]")).isDisplayed());
+        // Проверяем что вкладка Соусы действительно выбрана
+        WebElement saucesTab = new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(StellarHomePage.saucesTab));
+        assertTrue(saucesTab.isDisplayed(), "Вкладка 'Соусы' должна быть выбрана");
+
+        assertTrue(driver.findElement(By.xpath("//*[contains(text(), '" + MINERAL_FILLING + "')]")).isDisplayed());
         assertTrue(driver.findElement(By.xpath("//*[contains(text(), '" + SPICY_SAUSE + "')]")).isDisplayed());
     }
 
     @Test
-    @DisplayName("Переход к разделу «Булки» и проверка видимости элементов Булки")
-    @Step("Переход к разделу «Булки» и проверка видимости элементов")
+    @DisplayName("Раздел «Булки» выбран по дефолту и проверка видимости элементов Булки")
+    @Step("Проверка выборки раздела «Булки» и проверка видимости элементов")
     void testBunsSection() {
-        stellarHomePage.waitForBunsVisibilityTab();
+        // Проверяем что вкладка <Булки> действительно выбрана
+        WebElement bunsTab = new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(StellarHomePage.bunsTab));
+        assertTrue(bunsTab.isDisplayed(), "Вкладка 'булки' должна быть выбрана");
 
         assertTrue(driver.findElement(By.xpath("//*[contains(text(), '" + KRAT_BULKA + "')]")).isDisplayed());
         assertTrue(driver.findElement(By.xpath("//*[contains(text(), '" + FLUR_BULKA + "')]")).isDisplayed());
@@ -45,7 +56,11 @@ public class ConstructorSectionsTest extends BaseTest {
     @Step("Переход к разделу «Начинки» и проверка видимости элементов")
     void testFillingsSection() {
         driver.findElement(StellarHomePage.fillingsButton).click();
-        stellarHomePage.waitForScrollToFillingsTab();
+
+        // Проверяем что вкладка <Булки> действительно выбрана
+        WebElement fillingsTab = new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOfElementLocated(StellarHomePage.fillingsTab));
+        assertTrue(fillingsTab.isDisplayed(), "Вкладка 'Начинки' должна быть выбрана");
 
         assertTrue(driver.findElement(By.xpath("//*[contains(text(), '" + MINERAL_FILLING + "')]")).isDisplayed());
         assertTrue(driver.findElement(By.xpath("//*[contains(text(), '" + TREE_FILLING + "')]")).isDisplayed());

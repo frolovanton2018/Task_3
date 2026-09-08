@@ -37,11 +37,21 @@ public class StellarHomePage {
     // Кнопка "Булки"
     public static final By bunsButton = By.xpath("(//*[contains(@class, 'tab_tab')])[1]");
 
+    // Активная вкладка "Булки"
+    public static final By bunsTab = By.xpath("//div[contains(@class, 'current') and .//span[text()='Булки']]");
+
     // Кнопка "Соусы"
     public static final By sauceButton = By.xpath("//span[text()='Соусы']");
 
+    // Активная вкладка "Соусы"
+    public static final By saucesTab = By.xpath("//div[contains(@class, 'current') and .//span[text()='Соусы']]");
+
     // Кнопка "начинки"
     public static final By fillingsButton = By.xpath("(//*[contains(@class, 'tab_tab')])[3]");
+
+    // Активная вкладка "Начинки"
+    public static final By fillingsTab = By.xpath("//div[contains(@class, 'current') and .//span[text()='Начинки']]");
+
 
     // Кнопка Оформить заказ (после авторизации)
     public static final By placeOrderButton = By.xpath("//button[text()='Оформить заказ']");
@@ -65,30 +75,6 @@ public class StellarHomePage {
     // Переход в ЛК через кнопку Личный кабинет
     public void clickLkButton() {
         driver.findElement(lkButton).click();
-    }
-
-    // метод выбора вкладки Соусы с ожиданием
-    public void waitForScrollToSausesTab() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//div[contains(@class, 'current') and .//span[text()='Соусы']]")
-        ));
-    }
-
-    // метод выбора вкладки Начинки с ожиданием
-     public void waitForScrollToFillingsTab() {
-         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-         wait.until(ExpectedConditions.presenceOfElementLocated(
-                 By.xpath("//div[contains(@class, 'current') and .//span[text()='Начинки']]")
-         ));
-     }
-
-    // метод выбора вкладки Булки с ожиданием
-    public void waitForBunsVisibilityTab() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.xpath("//div[contains(@class, 'current') and .//span[text()='Булки']]")
-        ));
     }
 
     // Найти элемент по тексту и вернуть WebElement
